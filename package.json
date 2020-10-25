@@ -1,0 +1,20 @@
+{
+  "name": "use-validation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^7.12.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "jest": "^26.6.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-hooks-testing-library": "^0.6.0"
+  }
+}
