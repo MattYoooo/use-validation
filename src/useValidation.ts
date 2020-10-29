@@ -5,27 +5,34 @@ interface Validator<T> {
   errMsg?: string
 }
 
-function useValidation<T>(value: T, validateFn: ValidateFn<T>): any;
-function useValidation<T>(value: T, validator: Validator<T>): any;
-function useValidation<T>(value: T, validateFn: Array<ValidateFn<T>>): any;
-function useValidation<T>(value: T, validateFn: Array<Validator<T>>): any;
+interface Result {
+  isValid: boolean
+  inValidAt: number
+  errMsg: string
+}
 
-function useValidation<T>(value: T, validation: any) {
-  let isValid;
+type Validation<T> = ValidateFn<T> | Validator<T> | Array<ValidateFn<T>> | Array<Validator<T>>
+
+function useValidation<T>(value: T, validateFn: ValidateFn<T>): Result;
+function useValidation<T>(value: T, validator: Validator<T>): Result;
+function useValidation<T>(value: T, validateFn: Array<ValidateFn<T>>): Result;
+function useValidation<T>(value: T, validateFn: Array<Validator<T>>): Result;
+
+function useValidation<T>(value: T, validation: Validation<T>): Result {
+  let isValid = true;
   let inValidAt = -1;
   let errMsg = '';
-  let validateFn = validation;
 
-  if ('validateFn' in validation) {
-    validateFn = validation.validateFn;
-  }
-  if (typeof validateFn === 'function') {
-    isValid = validateFn(value);
+  if (typeof validation === 'function') {
+    isValid = validation(value);
     if (!isValid) {
       inValidAt = 0;
     }
-    if (!isValid && validation.errMsg) {
-      errMsg = validation.errMsg;
+  } else if ('validateFn' in validation) {
+    isValid = validation.validateFn(value);
+    if (!isValid) {
+      inValidAt = 0;
+      errMsg = validation.errMsg || '';
     }
   } else if (Array.isArray(validation)) {
     for (let i = 0; i < validation.length; i += 1) {
