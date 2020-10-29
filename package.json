@@ -1,14 +1,16 @@
 {
   "name": "use-validation",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A declarative way to handle validation and error message",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": ["lib/**/*"],
   "scripts": {
     "build": "rimraf ./lib && tsc",
     "test": "jest --watch",
     "lint": "eslint src/**/*.ts"
   },
-  "author": "",
+  "author": "Matt You <mattkiller810342@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^26.0.15",
