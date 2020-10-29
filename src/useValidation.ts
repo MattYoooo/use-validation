@@ -12,7 +12,7 @@ function useValidation<T>(value: T, validateFn: Array<Validator<T>>): any;
 
 function useValidation<T>(value: T, validation: any) {
   let isValid;
-  let inValidAt;
+  let inValidAt = -1;
   let errMsg = '';
   let validateFn = validation;
 
@@ -21,12 +21,14 @@ function useValidation<T>(value: T, validation: any) {
   }
   if (typeof validateFn === 'function') {
     isValid = validateFn(value);
-    inValidAt = isValid ? -1 : 0;
+    if (!isValid) {
+      inValidAt = 0;
+    }
     if (!isValid && validation.errMsg) {
       errMsg = validation.errMsg;
     }
   } else if (Array.isArray(validation)) {
-    for (let i = 0; i <= validation.length; i += 1) {
+    for (let i = 0; i < validation.length; i += 1) {
       const currentValidation = validation[i];
       if (typeof currentValidation === 'function') {
         isValid = currentValidation(value);
