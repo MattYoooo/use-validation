@@ -33,7 +33,7 @@ function RegisterForm() {
 }
 ```
 
-without use-validation
+with use-validation
 
 ```jsx
 import useValidation from 'use-validation';
